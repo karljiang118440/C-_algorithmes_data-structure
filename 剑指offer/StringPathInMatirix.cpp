@@ -7,9 +7,53 @@
 using namespace std;
 
 
+bool hasPathCore(const char* matrix, int rows, int cols, int row, int col, const char* str, int& pathLength, bool* visited);
 
+bool hasPath(const char* matrix,int rows, int cols,const char* str)
 
+{
+	if(matrix==nullptr||cols<1||rows<1||)
+		
+	bool *visited= new bool[rows*cols];
+	memset(visited,0,rows*cols);
+	
+	int pathLength=0;
+	for(int row=0;row<rows;++row)
+	{                              
+		for(int col=0;col<cols;++col)
+		{
+			if(hasPathCore(matrix,rows,cols,col,row,str,pathLength,visited))
+				return true;
+		}
+	}
+}
 
+	delete[] visited;
+	return false;
+	
+}
+
+bool hasPathCore(const char* matrix,int rows,int cols,int row, 
+				int col,const char *str,int &pathLength,bool visited)
+				
+{
+	if(str[pathLength]=='\0')
+		return true;
+	
+	bool hasPath=false;
+	if(row >=0 && row<=rows && col >=0 && col<=cols
+		&&matrix[row*cols+col]==str[pathLength]
+		&&!visited[row*cols+col])
+		
+		{
+			++pathLength;
+			visited[row*cols+col]=true;
+			
+			hasPath=hasPathCore(matrix,rows,cols，row,col,
+								str,pathLength,visited)
+		}
+					
+				}
 
 
 
