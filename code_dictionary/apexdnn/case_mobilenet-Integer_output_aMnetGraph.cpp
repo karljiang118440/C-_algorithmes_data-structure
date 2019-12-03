@@ -29,7 +29,16 @@ if(status_t::SUCCESS != status){
 }
 
 int dimN= fixedout[0] -> Dim(3);
-itn dimH = fixedout[0] -> Dim(2);
+int dimH = fixedout[0] -> Dim(2);
+int dimW = fixedout[0] -> Dim(1);
+int dimC = fixedout[0] -> Dim(0);
+
+Tensor* flaotInterm = netFixedToFloat -> AddTensor(std::unique_ptr<Tensor>(Tensor::Create<>(
+					  "FLOAT_INTERM_TENSOR",DataType_t::FLOAT,
+					  TensorShape<TensorFormat_t::NHWC>{dimN,dimH,dimW,dimC},
+					  TensorLayout<TensorFormat_t::NHWC>())));
+					  
+floatInterm -> Allocate(Allocate_t::HEAP);
 
 
 
